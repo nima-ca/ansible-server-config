@@ -1,0 +1,25 @@
+# This Configuration is intended for Ubuntu and used in 22.04 version!
+---
+- hosts: servers
+  become: true
+  vars:
+    created_username: admin
+    ssh_public_key_path: /Desktop/Ansible/Syncerland/ssh-keys/id_ed25519.pub
+
+  pre_tasks:
+    - name: Update cache
+      apt:
+        update_cache: true
+
+  tasks:
+    - name: Create User
+      include_tasks:
+        file: tasks/create-user.yml
+
+    - name: Install Tools
+      include_tasks:
+        file: tasks/install-tools.yml
+
+    - name: Config Firewall
+      include_tasks:
+        file: tasks/firewall.yml
