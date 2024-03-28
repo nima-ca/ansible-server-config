@@ -5,7 +5,7 @@
   vars:
     created_username: admin
     ssh_public_key_path: /Desktop/Ansible/Syncerland/ssh-keys/id_ed25519.pub
-    name_server_1: 10.202.10.102
+    name_server_1: 10.202.10.202
     name_server_2: 10.202.10.102
 
   pre_tasks:
