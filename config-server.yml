@@ -3,66 +3,66 @@
 - hosts: servers
   become: true
   vars:
-    created_username: admin
-    ssh_public_key_path: /Desktop/Ansible/Syncerland/ssh-keys/id_ed25519.pub
-    name_server_1: 10.202.10.202
-    name_server_2: 10.202.10.102
+      created_username: admin
+      ssh_public_key_path: /Desktop/Ansible/Syncerland/ssh-keys/id_ed25519.pub
+      name_server_1: 10.202.10.202
+      name_server_2: 10.202.10.102
 
   pre_tasks:
-    - name: Update cache
-      apt:
-        update_cache: true
-        cache_valid_time: 3600
+      - name: Update cache
+        apt:
+            update_cache: true
+            cache_valid_time: 3600
 
-      tags:
-        - user
-        - tools
-        - firewall
-        - dns
-        - docker
+        tags:
+            - user
+            - tools
+            - firewall
+            - dns
+            - docker
 
   tasks:
-    - name: Create User
-      include_tasks:
-        file: tasks/create-user.yml
-        apply:
-          tags:
+      - name: Create User
+        include_tasks:
+            file: tasks/create-user.yml
+            apply:
+                tags:
+                    - user
+        tags:
             - user
-      tags:
-        - user
 
-    - name: Install Tools
-      include_tasks:
-        file: tasks/install-tools.yml
-        apply:
-          tags:
+      - name: Install Tools
+        include_tasks:
+            file: tasks/install-tools.yml
+            apply:
+                tags:
+                    - tools
+        tags:
             - tools
-      tags:
-        - tools
 
-    - name: Config Firewall
-      include_tasks:
-        file: tasks/firewall.yml
-        apply:
-          tags:
+      - name: Config Firewall
+        include_tasks:
+            file: tasks/firewall.yml
+            apply:
+                tags:
+                    - firewall
+        tags:
             - firewall
-      tags:
-        - firewall
 
-    - name: Config DNS
-      include_tasks:
-        file: tasks/dns.yml
-        apply:
-          tags:
+      - name: Config DNS
+        include_tasks:
+            file: tasks/dns.yml
+            apply:
+                tags:
+                    - dns
+        tags:
             - dns
-      tags:
-        - dns
 
-    - name: Install Docker
-      include_tasks:
-        file: tasks/docker.yml
-        apply:
-          tags:
+      - name: Install Docker
+        include_tasks:
+            file: tasks/docker.yml
+            apply:
+                tags:
+                    - docker
+        tags:
             - docker
-      tags:
-        - docker

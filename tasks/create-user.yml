@@ -1,34 +1,34 @@
 - name: Setup passwordless sudo
   lineinfile:
-    path: /etc/sudoers
-    state: present
-    regexp: "^%sudo"
-    line: "%sudo ALL=(ALL) NOPASSWD: ALL"
-    validate: "/usr/sbin/visudo -cf %s"
+      path: /etc/sudoers
+      state: present
+      regexp: "^%sudo"
+      line: "%sudo ALL=(ALL) NOPASSWD: ALL"
+      validate: "/usr/sbin/visudo -cf %s"
 
 - name: Create a new regular user with sudo privileges
   user:
-    name: "{{ created_username }}"
-    state: present
-    groups: sudo
-    append: true
-    create_home: true
+      name: "{{ created_username }}"
+      state: present
+      groups: sudo
+      append: true
+      create_home: true
 
 - name: Change Shell to Bash for created_user
   shell: chsh -s /bin/bash "{{ created_username }}"
 
 - name: Set authorized key for remote user
   ansible.posix.authorized_key:
-    user: "{{ created_username }}"
-    state: present
-    key: "{{ lookup('file', lookup('env','HOME') + ssh_public_key_path) }}"
+      user: "{{ created_username }}"
+      state: present
+      key: "{{ lookup('file', lookup('env','HOME') + ssh_public_key_path) }}"
 
 - name: Disable password authentication for root
   lineinfile:
-    path: /etc/ssh/sshd_config
-    state: present
-    regexp: "^#?PermitRootLogin"
-    line: "PermitRootLogin prohibit-password"
+      path: /etc/ssh/sshd_config
+      state: present
+      regexp: "^#?PermitRootLogin"
+      line: "PermitRootLogin prohibit-password"
 
 - name: Restart SSH service
   shell: sudo systemctl restart ssh

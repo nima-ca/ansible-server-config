@@ -1,19 +1,19 @@
 - name: Install resolvconf
   apt:
-    name: resolvconf
-    state: latest
+      name: resolvconf
+      state: latest
 
 - name: Add nameservers to config
   shell: |
-    sudo echo "{{ 'nameserver ' + name_server_1 }}" >> /etc/resolvconf/resolv.conf.d/head
-    sudo echo "{{ 'nameserver ' + name_server_2 }}" >> /etc/resolvconf/resolv.conf.d/head
+      sudo echo "{{ 'nameserver ' + name_server_1 }}" >> /etc/resolvconf/resolv.conf.d/head
+      sudo echo "{{ 'nameserver ' + name_server_2 }}" >> /etc/resolvconf/resolv.conf.d/head
 
 - name: Update the resolv.conf file
   shell: |
-    sudo resolvconf --enable-updates
-    sudo resolvconf -u
+      sudo resolvconf --enable-updates
+      sudo resolvconf -u
 
 - name: restart DNS service
   shell: |
-    sudo systemctl restart resolvconf.service
-    sudo systemctl restart systemd-resolved.service
+      sudo systemctl restart resolvconf.service
+      sudo systemctl restart systemd-resolved.service

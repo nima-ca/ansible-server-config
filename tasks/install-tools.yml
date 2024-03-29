@@ -1,8 +1,9 @@
 - name: Update apt and install required system packages
   apt:
-    pkg:
-      - curl
-      - vim
-      - git
-      - ufw
-    state: latest
+      pkg:
+          - curl
+          - vim
+          - git
+          - ufw
+      state: latest
+      update_cache: true
