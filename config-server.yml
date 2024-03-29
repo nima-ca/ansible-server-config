@@ -76,3 +76,12 @@
                     - upgrade
         tags:
             - upgrade
+
+      - name: Install Nginx
+        include_tasks:
+            file: tasks/nginx.yml
+            apply:
+                tags:
+                    - nginx
+        tags:
+            - nginx

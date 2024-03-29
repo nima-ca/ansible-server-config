@@ -1,0 +1,16 @@
+- name: Install Nginx
+  apt:
+      name: nginx
+      state: latest
+      update_cache: true
+
+- name: start nginx
+  service:
+      name: nginx
+      state: started
+      enabled: yes # if you want to also enable nginx
+
+- name: UFW - Allow HTTP connections
+  community.general.ufw:
+      rule: allow
+      name: Nginx HTTP
