@@ -1,6 +1,7 @@
 # This Configuration is intended for Ubuntu and used in 22.04 version!
 ---
 - hosts: servers
+  gather_facts: true
   become: true
   vars:
       created_username: admin
@@ -66,3 +67,12 @@
                     - docker
         tags:
             - docker
+
+      - name: Upgrade and reboot if required
+        include_tasks:
+            file: tasks/upgrade.yml
+            apply:
+                tags:
+                    - upgrade
+        tags:
+            - upgrade
